@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechV - Making Technology Simple, Affordable & Accessible</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #8b5cf6;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #8b5cf6;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background: #f8fafc;
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .floating-cards {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            height: 350px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 60px 50px;
+            padding: 40px;
+        }
+
+        .floating-card {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: float 6s ease-in-out infinite;
+            width: 140px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .floating-card:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .floating-card:nth-child(2) {
+            animation-delay: -2s;
+        }
+
+        .floating-card:nth-child(3) {
+            animation-delay: -4s;
+        }
+
+        .floating-card:nth-child(4) {
+            animation-delay: -1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* PROBLEM SECTION */
+        .problem {
+            padding: 6rem 0;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .problem h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .problem p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* SERVICES SECTION */
+        .services {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.15);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* PORTFOLIO SECTION */
+        .portfolio {
+            padding: 6rem 0;
+            background: #f8fafc;
+        }
+
+        .portfolio h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 3rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899, #06b6d4, #10b981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-content h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-content p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* FAQ SECTION */
+        .faq {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 3rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #f8fafc;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f1f5f9;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: #8b5cf6;
+        }
+
+        .faq-question.active i {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            padding: 1.5rem;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* CTA SECTION */
+        .final-cta {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .final-cta h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #8b5cf6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 0.3rem 0;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #334155;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #8b5cf6;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.1rem;
+            }
+
+            .problem h2 {
+                font-size: 2rem;
+            }
+
+            .services h2,
+            .portfolio h2,
+            .faq h2 {
+                font-size: 2rem;
+            }
+
+            .final-cta h2 {
+                font-size: 2.2rem;
+            }
+
+            .floating-cards {
+                height: 300px;
+            }
+
+            .floating-card {
+                padding: 1.5rem;
+            }
+
+            .service-card,
+            .portfolio-item {
+                margin: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container,
+            .section-container {
+                padding: 0 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .floating-cards {
+                display: none;
+            }
+        }
+
+        /* SMOOTH SCROLLING */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* LOADING ANIMATION */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+/* 🔹 Portfolio Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 15px;
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #a855f7, #8b5cf6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.3);
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">TechV</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content fade-in">
+                <h1>Making Technology Simple</h1>
+                <p class="hero-tagline">Making the online world simple, affordable, and accessible for small businesses and entrepreneurs</p>
+                <a href="#contact" class="cta-button">Start Your Project</a>
+            </div>
+            <div class="hero-visual fade-in">
+                <div class="floating-cards">
+                    <div class="floating-card">
+                        <i class="fas fa-laptop-code" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 1rem;"></i>
+                        <h4>Web Design</h4>
+                    </div>
+                    <div class="floating-card">
+                        <i class="fas fa-chart-line" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 1rem;"></i>
+                        <h4>Growth Strategy</h4>
+                    </div>
+                    <div class="floating-card">
+                        <i class="fas fa-palette" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 1rem;"></i>
+                        <h4>Brand Identity</h4>
+                    </div>
+                    <div class="floating-card">
+                        <i class="fas fa-rocket" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 1rem;"></i>
+                        <h4>One-Time Delivery</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section id="problem" class="problem">
+        <div class="section-container">
+            <h2 class="fade-in">Technology can be overwhelming and expensive.<br>We make it simple, affordable, and accessible.</h2>
+            <p class="fade-in">Small businesses shouldn't struggle with complex tech solutions. We bridge the gap between cutting-edge technology and practical business needs, delivering solutions that actually work for your budget and timeline.</p>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="services">
+        <div class="section-container">
+            <h2 class="fade-in">What We Offer</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Website Design</h3>
+                    <p>Beautiful, responsive websites that convert visitors into customers. Built with modern technologies and optimized for performance and SEO.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Brand Identity</h3>
+                    <p>Logos, color schemes, and visuals that make your business unforgettable.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>One-Time Delivery</h3>
+                    <p>Fast, reliable, and affordable service for single projects — delivered on time with no compromise on quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="portfolio">
+        <div class="section-container">
+            <h2 class="fade-in">Our Recent Work</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Supermarket Website</h3>
+                        <p>Modern online supermarket platform with product categories, pricing display, and easy navigation — designed for local stores to bring their business online and reach more customers.</p>
+<a href="https://saikakara.github.io/Project-s/" target="_blank" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Restaurant Website</h3>
+                        <p>Modern restaurant website with online ordering system and table reservation functionality.</p>
+<a href="https://saikakara.github.io/Project-2/" target="_blank" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Quiz App (5 Questions)</h3>
+                        <p>A simple and engaging quiz app with 5 repeated questions, score tracking, and instant feedback — designed to practice coding logic and user interaction.</p>
+<a href="https://saikakara.github.io/Assets/" target="_blank" class="btn">View Project</a>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="faq">
+        <div class="section-container">
+            <h2 class="fade-in">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>How long does a typical website project take?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Most website projects are completed within 2-4 weeks, depending on complexity and requirements. We'll provide a detailed timeline during our initial consultation and keep you updated throughout the process.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Do you provide ongoing maintenance and support?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We offer comprehensive maintenance packages that include security updates, content updates, performance monitoring, and technical support to keep your website running smoothly.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Can you help with existing websites or just new ones?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We work with both new and existing websites. Whether you need a complete redesign, performance optimization, or new features added to your current site, we can help improve your online presence.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>What makes your AI solutions different?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our AI solutions are specifically designed for small businesses with practical applications and affordable implementation. We focus on solving real problems rather than just using trendy technology.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Do you work with businesses outside your local area?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We work with clients worldwide through video calls, screen sharing, and collaborative tools. Distance is no barrier to delivering exceptional digital solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section id="contact" class="final-cta">
+        <div class="section-container">
+            <h2 class="fade-in">Start Your Project with TechV Today</h2>
+            <p class="fade-in">Ready to transform your business with simple, affordable technology solutions?</p>
+            <a href="https://wa.me/917671973148?text=Hi%20TechV%2C%20I%20want%20to%20create%20a%20website%20for%20my%20business"
+       
+    class="cta-button">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="section-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TechV</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Making technology simple, affordable, and accessible for everyone.</p>
+                    
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Website Design</a></li>
+                        <li><a href="#services">Brand Identity</a></li>
+                        <li><a href="#services">One-Time Delivery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechV. All rights reserved. | Making technology accessible for everyone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // NAVBAR SCROLL EFFECT
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // SMOOTH SCROLLING FOR NAVIGATION LINKS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // FAQ ACCORDION FUNCTIONALITY
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                // Close other open FAQs
+                document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                    if (otherAnswer !== answer) {
+                        otherAnswer.classList.remove('active');
+                        otherAnswer.previousElementSibling.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current FAQ
+                answer.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+        });
+
+        // INTERSECTION OBSERVER FOR ANIMATIONS
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply animation to elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // MOBILE MENU FUNCTIONALITY
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+            
+            // Animate hamburger menu
+            const spans = this.querySelectorAll('span');
+            spans.forEach((span, index) => {
+                span.style.transform = navLinks.classList.contains('active') 
+                    ? `rotate(${index === 1 ? 45 : index === 0 ? 45 : -45}deg) translate(${index === 1 ? 0 : index === 0 ? 5 : -5}px, ${index === 1 ? 0 : index === 0 ? 5 : -5}px)`
+                    : 'none';
+            });
+        });
+
+        // PARALLAX EFFECT FOR HERO SECTION
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const heroCards = document.querySelectorAll('.floating-card');
+            
+            heroCards.forEach((card, index) => {
+                const speed = 0.5 + (index * 0.1);
+                card.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // TYPING EFFECT FOR HERO TITLE
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('.hero-content h1');
+            const originalText = heroTitle.textContent;
+            typeWriter(heroTitle, originalText, 80);
+        });
+
+        // CONTACT FORM HANDLING (if needed)
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#contact' || this.getAttribute('href').includes('mailto:')) {
+                    // Add a subtle animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                }
+            });
+        });
+
+        // PRELOADER (optional)
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+            
+            // Stagger animation for service cards
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // SCROLL TO TOP FUNCTIONALITY
+        let scrollToTopBtn = document.createElement('button');
+        scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        scrollToTopBtn.setAttribute('id', 'scrollToTop');
+        scrollToTopBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        `;
+        
+        document.body.appendChild(scrollToTopBtn);
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.style.opacity = '1';
+                scrollToTopBtn.style.transform = 'translateY(0)';
+            } else {
+                scrollToTopBtn.style.opacity = '0';
+                scrollToTopBtn.style.transform = 'translateY(100px)';
+            }
+        });
+        
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // PERFORMANCE OPTIMIZATION
+        let ticking = false;
+        
+        function updateOnScroll() {
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Parallax effect
+            const scrolled = window.pageYOffset;
+            const heroCards = document.querySelectorAll('.floating-card');
+            
+            heroCards.forEach((card, index) => {
+                const speed = 0.5 + (index * 0.1);
+                card.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+            
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick);
+    </script>
+</body>
+</html>
